@@ -1,84 +1,151 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>jrmehle/jrmehle.github.com @ GitHub</title>
+  <title></title>
+  <meta name="description" content="">
+  <meta name="author" content="Jared Mehle">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #4CA3E8;
-      font-family: "helvetica"; 
-      color: #ffffff;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #333; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #333; }
-    h3 { text-align: center; color: #333; }
-    a { color: #333; }
-    a:hover { color: #000; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
-  
+  <link href='http://fonts.googleapis.com/css?family=Puritan:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:regular,bold' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/style.css">
+
 </head>
 
 <body>
-  <a href="http://github.com/jrmehle/jrmehle.github.com"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-  
+
   <div id="container">
+    <header>
 
-    <div class="download">
-      <a href="http://github.com/jrmehle/jrmehle.github.com/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/jrmehle/jrmehle.github.com/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+    </header>
+    <div id="main" role="main">
+      <div id="about">
+        <img src="/images/jared.jpg" width="120" height="120" alt="" id="jared" />
+        <div class="text">
+          <h2>Jared Mehle</h2>
+          <ul>
+            <li>
+              <strong>Software Developer</strong>
+            </li>
+            <li>Twin Cities, Minnesota</li>
+            <li>
+              Specializing in web apps using<br />
+              Ruby on Rails, HTML, CSS, and Javascript.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="outside_links">
+        <ul class="clearfix">
+          <li id="twitter">
+            <a href="http://twitter.com/jrmehle">twitter</a>
+          </li>
+          <li id="flickr">
+            <a href="http://flickr.com/photos/jaredvolkl">flickr</a>
+          </li>
+          <li id="linkedin">
+            <a href="http://www.linkedin.com/in/jrmehle">linkedin</a>
+          </li>
+          <li id="lastfm">
+            <a href="http://last.fm/user/jaredvolkl">last.fm</a>
+          </li>
+          <li id="github" class="last">
+            <a href="http://github.com/jrmehle">Github</a>
+          </li>
+        </ul>
+      </div>
     </div>
+    <div id="outside_pane" style="display:none">
+      <p>Go to my <a href="#" id="outside_link">link</a></p>
+      <div id="replace"></div>
+      <div id="close_outside_pane">&#x2716; Close</div>
+    </div>
+    <footer>
+
+    </footer>
+  </div> <!-- eo #container -->
+
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.js"></script>
+  <script src="/javascripts/jquery.tweet.js"></script>
+  <script src="/javascripts/jflickrfeed.min.js"></script>
+  <script src="/javascripts/jquery.zrssfeed.min.js"></script>
+  <script>
+    jQuery.fn.fadeThenSlideToggle = function(speed, easing, callback) {
+      if (this.is(":hidden")) {
+        return this.slideDown(speed, easing).fadeTo(speed, 1, easing, callback);
+      } else {
+        return this.fadeTo(speed, 0, easing).slideUp(speed, easing, callback);
+      }
+    };
+    $(document).ready(function(){
+      $('#outside_links li a').click(function(link){
+        $(this).parent().addClass('current').animate({'top':'1px'}, 150);
+        $(this).parent().siblings().removeClass('current').animate({'top':'-5px'}, 150);
+        $('#outside_pane #outside_link').html($(this).html()).attr('href', $(this).attr('href'));
+        var link_text = $(this).html();
+        $('#outside_pane').show();
+        $('#outside_pane #replace').html('').fadeOut(100, function(){
+          loadContent(link_text)
+          $(this).fadeThenSlideToggle(100);
+        });
+        
+        link.preventDefault();
+      });
       
-    <h1><a href="http://github.com/jrmehle/jrmehle.github.com">jrmehle.github.com</a> 
-      <span class="small">by <a href="http://github.com/jrmehle">jrmehle</a></small></h1>
-
-    <div class="description">
-      My Github Homepage
-    </div>
-
-    <p>This is my github page</p><h2>Authors</h2>
-<p>Jared Mehle (jrmehle@gmail.com)
-<br/>
-<br/>      </p>
-<h2>Contact</h2>
-<p>Jared (jrmehle@gmail.com)
-<br/>      </p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/jrmehle/jrmehle.github.com/zipball/master">zip</a> or
-      <a href="http://github.com/jrmehle/jrmehle.github.com/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/jrmehle/jrmehle.github.com</pre>
-    </p>
+      $('#close_outside_pane').click(function(){
+        $('#outside_pane').fadeOut(100);
+        $('#outside_links li').animate({'top':'-5px'}, 100);
+      });
       
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/jrmehle/jrmehle.github.com">jrmehle/jrmehle.github.com</a>
-    </div>
-    
-  </div>
+      function loadContent(content) {
+        if(content == 'twitter') {
+          $("#replace").tweet({
+              username: "jrmehle",
+              join_text: "auto",
+              avatar_size: 40,
+              count: 5,
+              template: "<div class=\"clearfix\">{avatar}{join}{text}{time}</div>",
+              loading_text: "loading tweets..."
+          });
+        } else if(content == 'flickr') {
+          $('#replace').html('<ul class="flickr_photos clearfix"></ul>');
+          $('#replace ul').jflickrfeed({
+            limit: 15,
+            qstrings: {id: '41202266@N00'},
+            itemTemplate: '<li><a href="{{image}}"><img alt="{{title}}" src="{{image_s}}" /></a></li>'
+          });
+        } else if(content == 'linkedin') {
+          $('#replace').html("Connect with me.");
+        } else if(content == 'last.fm') {
+          $('#replace').html('Loading...');
+          $('#replace').rssfeed('http://ws.audioscrobbler.com/1.0/user/jaredvolkl/recenttracks.rss', {
+            limit: 5,
+            header: false
+          });
+        } else if(content == 'Github') {
+          $('#replace').html('Loading...');
+          $('#replace').rssfeed('https://github.com/jrmehle.atom', {
+            limit: 5,
+            header: false
+          });
+        }
+      }
+    });
+  </script>
 
-  
+  <!--[if lt IE 7 ]>
+    <script src="js/libs/dd_belatedpng.js"></script>
+    <script>DD_belatedPNG.fix("img, .png_bg");</script>
+  <![endif]-->
 </body>
 </html>
